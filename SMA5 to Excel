@@ -1,0 +1,27 @@
+import pandas as pd
+
+
+url = 'http://www.panphol.com/data/page/stockprice/PTT'
+data = pd.read_html(url)
+data1=pd.DataFrame(columns=['SMA5'])
+close=data[0].iloc[:,4]
+len(close)
+ind = len(close)
+# print(close)
+SMA=5
+c=SMA-1
+for c1 in range(c):
+    print('')
+    data1.loc[c1]=['']
+
+while ind >= SMA :
+    d=close.iloc[ind-SMA:ind].mean()
+    data1.loc[c]=[d]
+    print(d)
+    ind -=1
+    c +=1
+
+writer = pd.ExcelWriter('T:\DATA\SMA10.xlsx')
+data1.to_excel(writer,'Sheet1',startcol=0)
+writer.save()
+
