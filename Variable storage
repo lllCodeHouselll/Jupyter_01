@@ -1,0 +1,13 @@
+# Name creator
+import pandas as pd
+
+df1=pd.DataFrame(columns=['Name'])
+c=1
+ind=10
+while ind>=1 :
+    df1.loc[c-1]=['SMA'+str(c)]
+
+    c +=1
+    ind -=1
+    
+df1
