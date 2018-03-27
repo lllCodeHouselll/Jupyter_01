@@ -1,0 +1,66 @@
+import pandas as pd 
+
+url = 'http://www.panphol.com/data/page/stockprice/PTT'
+data = pd.read_html(url)
+close=data[0].iloc[:,4]
+
+
+df=pd.DataFrame()
+df1=pd.DataFrame()
+date=data[0].iloc[:,0]
+w1=len(date)
+A2=[]
+c2=1
+while c2<=w1:
+    d1=date.iloc[w1-c2]
+    A2.append(d1)
+    c2 +=1
+df['Date']=A2
+# print(df)
+
+SMA=15
+
+c3=1
+while c3<=SMA:
+    w=len(close)
+    A1=[]
+    c1=1
+    while c1<c3:
+        A1.append('')
+        c1 +=1
+    while w>=c3:
+        d=close.iloc[w-c3:w].mean()
+        A1.append(d)
+        w -=1
+    df['SMA'+str(c3)]=A1
+    c3 +=1
+
+    c4=1
+    c5=c4
+    c6=c4
+while c6<SMA:
+    while c4<SMA:
+        A3=[]
+        x=c5
+        y=c4+1
+#         print('SMA'+str(x)+'x'+str(y))
+        st = df.iloc[:,x]
+        nd = df.iloc[:,y]
+        w2=len(nd)
+        y1=y-1
+        for cs in range(y1):
+            A3.append('')
+        while y1<w2:
+            d3=st[y1]-nd[y1]
+            A3.append(d3)
+#             print(d3)
+            y1 +=1
+        df1['SMA'+str(x)+'x'+str(y)]=A3
+        c4 +=1
+    c4=c6+1
+    c5=c4
+    c6=c6+1
+    
+df1
+    
+    
