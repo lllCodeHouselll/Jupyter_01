@@ -1,0 +1,23 @@
+import pandas as pd 
+
+url = 'http://www.panphol.com/data/page/stockprice/PTT'
+data = pd.read_html(url)
+close=data[0].iloc[:,4]
+df=pd.DataFrame()
+SMA=5
+while SMA>0:
+    ind = len(close)
+    A=[]
+    c=SMA-1   
+    for c1 in range(c):
+            A.append('')
+    while ind >= SMA :
+            d=close.iloc[ind-SMA:ind].mean()
+            A.append(d)
+            ind -=1
+            c +=1
+    df['SMA'+str(SMA)]=A
+    SMA -=1
+
+df.iloc[:,0:5]
+
